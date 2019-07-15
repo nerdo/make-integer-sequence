@@ -1,26 +1,39 @@
 // Instead of setting this up with Babel and overcomplicating it, it is written here with ES6
 // and was copied & pasted into https://babeljs.io/en/repl to convert it to ES5 for consumption as a library.
 
-export const integerSequence = (startingAt = 0, startOverWhenMaxIntegerIsReached = true) => {
+export const integerIterator = (startingAt = 0, endingAt = Number.MAX_SAFE_INTEGER, startOverWhenAtEnd = false) => {
   let id = startingAt
   return {
-    next () {
-      if (id === Number.MAX_SAFE_INTEGER) {
-        if (startOverWhenMaxIntegerIsReached) {
+    [Symbol.iterator]: function () {
+      return this
+    },
+    next (reset) {
+      const value = id
+      if (reset) {
+        id = startingAt
+      } else if (id === endingAt) {
+        if (startOverWhenAtEnd) {
           id = startingAt
-        } else {
-          throw new Error('Number.MAX_SAFE_INTEGER reached!')
         }
+      } else {
+        id++
       }
-      return id++
+      return {
+        value,
+        done: value === endingAt && !startOverWhenAtEnd
+      }
     }
   }
 }
 
-export const makeIntegerSequence = (startingAt = 0) => {
-  const idSequence = integerSequence(startingAt)
+export const makeIntegerSequence = (startingAt = 0, endingAt = Number.MAX_SAFE_INTEGER, startOverWhenAtEnd = false) => {
+  const idSequence = integerIterator(startingAt, endingAt, startOverWhenAtEnd)
   return () => {
-    return idSequence.next()
+    const next = idSequence.next()
+    if (next.done && !startOverWhenAtEnd) {
+      throw new Error(`${endingAt === Number.MAX_SAFE_INTEGER ? 'Number.MAX_SAFE_INTEGER' : endingAt} reached!`)
+    }
+    return next.value
   }
 }
 

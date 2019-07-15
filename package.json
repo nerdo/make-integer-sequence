@@ -1,7 +1,7 @@
 {
   "name": "make-integer-sequence",
   "version": "1.0.0",
-  "description": "A function that returns an integer sequence in a generator-like fashion.",
+  "description": "A function that returns an integer sequence in a iterator-like fashion.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
