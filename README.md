@@ -1,7 +1,9 @@
 # make-integer-sequence
+
 A function that returns an integer sequence in a iterator-like fashion.
 
-## `makeIntegerSequence(startingAt = 0, endingAt = Number.MAX_SAFE_INTEGER, startOverWhenAtEnd = false)`
+`makeIntegerSequence(startingAt = 0, endingAt = Number.MAX_SAFE_INTEGER, startOverWhenAtEnd = false)`
+
 This is the default export of the library.
 
 It takes a three optional arguments:
@@ -22,7 +24,8 @@ console.log(getNextInteger()) // 1
 console.log(getNextInteger()) // 2
 ```
 
-## `integerIterator(startingAt = 0, endingAt = Number.MAX_SAFE_INTEGER, startOverWhenAtEnd = false)`
+`integerIterator(startingAt = 0, endingAt = Number.MAX_SAFE_INTEGER, startOverWhenAtEnd = false)`
+
 It has the same signature as `makeIntegerSequence`.
 
 It returns the underlying iterator instead of the convenience function.
